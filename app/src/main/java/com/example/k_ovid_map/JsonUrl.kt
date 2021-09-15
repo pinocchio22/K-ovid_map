@@ -27,7 +27,7 @@ class JsonUrl(addr: String){
 
 //    val storesURL = "https://8oi9s0nnth.apigw.ntruss.com/corona19-masks/v1/stores/json"
 //    val salesURL = "https://8oi9s0nnth.apigw.ntruss.com/corona19-masks/v1/sales/json"
-    val JsonURL = "https://api.odcloud.kr/api/apnmOrg/v1/list?page=1&perPage=10&serviceKey=9PAc6aMn2DC3xdA7rYZn71Hxr3mT9V5E4qnnakQkwj44zVNrPfV%2FVLVnDsnf30wrZZ%2BD%2FS%2BWRTNinP7J8lMjeQ%3D%3D"
+    val JsonURL = "https://api.odcloud.kr/api/15077586/v1/centers?page=1&perPage=10&serviceKey=9PAc6aMn2DC3xdA7rYZn71Hxr3mT9V5E4qnnakQkwj44zVNrPfV%2FVLVnDsnf30wrZZ%2BD%2FS%2BWRTNinP7J8lMjeQ%3D%3D"
 
     fun main(): ListViewAdapter{
 
@@ -91,8 +91,8 @@ class JsonUrl(addr: String){
             total = jsonObject.getInt("totalCount")
             for (i in 0 until jsonArray.length()) {
                 val item = jsonArray.getJSONObject(i)
-                center = item.getString("orgnm")
-                centeraddr = item.getString("orgZipaddr")
+                center = item.getString("centerName")
+                centeraddr = item.getString("address")
 //                println("storeName : $center")
 //                println("remain_stat : $centeraddr")
 //                println(total)
