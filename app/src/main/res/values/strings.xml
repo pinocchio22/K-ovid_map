@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">K-ovid_map</string>
+    <string name="title_activity_maps">Map</string>
 </resources>

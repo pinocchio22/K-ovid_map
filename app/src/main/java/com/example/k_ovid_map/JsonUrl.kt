@@ -1,6 +1,5 @@
 package com.example.k_ovid_map
 
-import org.json.JSONArray
 import org.json.JSONException
 import org.json.JSONObject
 import java.io.*
@@ -23,6 +22,10 @@ class JsonUrl(addr: String){
         this.addr = addr
     }
 
+    var lats = ArrayList<String>()
+    var lngs = ArrayList<String>()
+    var name = ArrayList<String>()
+
     var adapter : ListViewAdapter = ListViewAdapter()
 
 //    val storesURL = "https://8oi9s0nnth.apigw.ntruss.com/corona19-masks/v1/stores/json"
@@ -31,12 +34,12 @@ class JsonUrl(addr: String){
 
     fun main(): ListViewAdapter{
 
-        var text: String? = null
-        try {
-            text = URLEncoder.encode(addr, "UTF-8")
-        } catch (e: UnsupportedEncodingException) {
-            throw RuntimeException("검색어 인코딩 실패", e)
-        }
+//        var text: String? = null
+//        try {
+//            text = URLEncoder.encode(addr, "UTF-8")
+//        } catch (e: UnsupportedEncodingException) {
+//            throw RuntimeException("검색어 인코딩 실패", e)
+//        }
 
         val url = JsonURL
         val responseBody = get(url)
@@ -65,16 +68,16 @@ class JsonUrl(addr: String){
         val streamReader = InputStreamReader(body)
 
         try {
-            BufferedReader(streamReader).use({ lineReader ->
+            BufferedReader(streamReader).use { lineReader ->
                 val responseBody = StringBuilder()
 
                 var line: String? = lineReader.readLine()
-                while ( line != null) {
+                while (line != null) {
                     responseBody.append(line)
                     line = lineReader.readLine()
                 }
                 return responseBody.toString()
-            })
+            }
         } catch (e: IOException) {
             throw RuntimeException("API 응답을 읽는데 실패했습니다.", e)
         }
@@ -84,6 +87,8 @@ class JsonUrl(addr: String){
     private fun parseData(responseBody: String) {
         var center: String
         var centeraddr : String
+        var lat: String
+        var lng: String
         var jsonObject = JSONObject()
         try {
             jsonObject = JSONObject(responseBody)
@@ -93,6 +98,11 @@ class JsonUrl(addr: String){
                 val item = jsonArray.getJSONObject(i)
                 center = item.getString("centerName")
                 centeraddr = item.getString("address")
+                lat = item.getString("lat")
+                lng = item.getString("lng")
+                name.add(center)
+                lats.add(lat)
+                lngs.add(lng)
 //                println("storeName : $center")
 //                println("remain_stat : $centeraddr")
 //                println(total)
